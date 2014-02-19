@@ -17,14 +17,14 @@ function adjacent_archive_rel_link_wp_head()
 
     global $paged, $wp_query;
 
-    $max_page = $wp_query->max_num_pages;
-    $nextpage = intval($paged) + 1;
-
     if (!$paged) {
         $paged = 1;
     }
 
-    if ($nextpage <= $max_page) {
+    $max_page = $wp_query->max_num_pages;
+    $next_page = intval($paged) + 1;
+
+    if ($next_page <= $max_page) {
         $next_posts = next_posts($max_page, false);
         echo "<link rel=\"next\" href=\"{$next_posts}\">" . PHP_EOL;
     }
