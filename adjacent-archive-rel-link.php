@@ -9,22 +9,22 @@ Description: 既存の link[rel=next|prev] を削除し、アーカイブペー�
 
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
 
-function adjacent_archive_rel_link_wp_head() {
-    global $paged, $wp_query;
-
-    $max_page = $wp_query->max_num_pages;
-
-    if (!$paged) {
-        $paged = 1;            
-    }
-
-    $nextpage = intval($paged) + 1;
-
-    if (is_singular())  {
+function adjacent_archive_rel_link_wp_head()
+{
+    if (is_singular()) {
         return;
     }
 
-    if ($nextpage <= $max_page) { 
+    global $paged, $wp_query;
+
+    $max_page = $wp_query->max_num_pages;
+    $nextpage = intval($paged) + 1;
+
+    if (!$paged) {
+        $paged = 1;
+    }
+
+    if ($nextpage <= $max_page) {
         $next_posts = next_posts($max_page, false);
         echo "<link rel=\"next\" href=\"{$next_posts}\">" . PHP_EOL;
     }
